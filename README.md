@@ -1,4 +1,4 @@
-# Docker Template
+# Docker todo
 [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/nicholaswilde/todo)](https://hub.docker.com/r/nicholaswilde/todo)
 [![Docker Pulls](https://img.shields.io/docker/pulls/nicholaswilde/todo)](https://hub.docker.com/r/nicholaswilde/todo)
 [![GitHub](https://img.shields.io/github/license/nicholaswilde/docker-todo)](./LICENSE)
