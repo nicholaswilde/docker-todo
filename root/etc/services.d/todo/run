@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+cd /go/src/github.com/prologic/todo/ || exit 1
+
+exec \
+	s6-setuidgid abc \
+    /go/src/github.com/prologic/todo/todo \
+      -dbpath /data

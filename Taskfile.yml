@@ -8,7 +8,7 @@ vars:
     sh: "date -u +%Y-%m-%dT%H%M%S%Z"
   BUILD_ARGS: >-
     --build-arg VERSION={{ .VERSION }}
-    --build-arg CHECKSUM={{ .CHECKSUM }}
+    --build-arg COMMIT={{ .COMMIT }}
     --build-arg BUILD_DATE={{ .BUILD_DATE }}
   TAG_VERSION: "{{ .NS }}/{{ .IMAGE_NAME }}:{{ .VERSION }}-ls{{ .LS }}"
   TAG_LATEST: "{{ .NS }}/{{ .IMAGE_NAME }}:latest"
@@ -38,8 +38,8 @@ tasks:
     deps:
       - build:build-deps
 
-  checksum:
-    desc: Get the checksum of the release or source package.
+  COMMIT:
+    desc: Get the COMMIT of the release or source package.
     deps:
       - chk:_varcheck
       - chk:_release
@@ -56,10 +56,11 @@ tasks:
       - "hadolint Dockerfile"
       - "yamllint ."
     preconditions:
-      - sh: type hadolint2
+      - sh: type hadolint
         msg: "hadolint is not installed. Run 'task deps:hadolint'"
       - sh: type yamllint
         msg: "yamllint is not installed. Run 'task deps:yamllint'"
+    silent: true
 
   load:
     desc: Load the release image
@@ -130,7 +131,7 @@ tasks:
     cmds:
       - "printf 'task: Available variables for this project:\n'"
       - 'printf "{{ .COLOR }}* BASE\e[m               %s\n" "{{ .BASE }}"'
-      - 'printf "{{ .COLOR }}* CHECKSUM\e[m           %s\n" "{{ .CHECKSUM }}"'
+      - 'printf "{{ .COLOR }}* COMMIT\e[m             %s\n" "{{ .COMMIT }}"'
       - 'printf "{{ .COLOR }}* CONTAINER\e[m          %s\n" "{{ .CONTAINER }}"'
       - 'printf "{{ .COLOR }}* CONTAINER_INSTANCE\e[m %s\n" "{{ .CONTAINER_INSTANCE }}"'
       - 'printf "{{ .COLOR }}* CONTAINER_NAME\e[m     %s\n" "{{ .CONTAINER_NAME }}"'
@@ -149,7 +150,8 @@ tasks:
       - 'printf "{{ .COLOR }}* TYPE\e[m               %s\n" "{{ .TYPE }}"'
       - 'printf "{{ .COLOR }}* VERSION\e[m            %s\n" "{{ .VERSION }}"'
     vars:
-      COLOR: '\e[1;34m' # Blue
+      # Blue
+      COLOR: '\e[1;34m'
     silent: true
 
   default:
