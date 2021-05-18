@@ -1,13 +1,13 @@
 FROM golang:1.14.15-alpine3.13 as build
 ARG VERSION
-ARG COMMIT=941c0d3a20b88384f303af6311fc33ede9d831b4
+ARG COMMIT
 ENV GO111MODULE on
 WORKDIR /go/src/github.com/prologic/todo
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    git=2.30.1-r0 \
+    git=2.30.2-r0 \
     make=4.3-r0 \
     build-base=0.5-r2 && \
   echo "**** download todo ****" && \
@@ -27,6 +27,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:3.13
 ARG BUILD_DATE
 ARG VERSION
 ENV GOPATH /go
+# hadolint ignore=DL3048
 LABEL build_version="Version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="nicholaswilde"
 COPY --from=build --chown=abc:abc /go /go
