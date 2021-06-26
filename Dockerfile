@@ -23,7 +23,7 @@ RUN \
     .github \
     screenshots
 
-FROM ghcr.io/linuxserver/baseimage-alpine:3.13
+FROM ghcr.io/linuxserver/baseimage-alpine:3.14
 ARG BUILD_DATE
 ARG VERSION
 ENV GOPATH /go
